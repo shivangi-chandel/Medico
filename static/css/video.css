@@ -1,0 +1,81 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .consultation-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 40px;
+    background-color: #ffecec;
+  }
+  
+  .consultation-content {
+    max-width: 50%;
+  }
+  
+  .consultation-content h1 {
+    font-size: 2.5rem;
+    color: #000;
+    margin-bottom: 10px;
+  }
+  
+  .consultation-content p {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 20px;
+  }
+  
+  .doctor-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .doctor-images img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 5px;
+  }
+  
+  .online-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-color: green;
+    border-radius: 50%;
+    margin-left: 5px;
+  }
+  
+  .consult-btn {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .consult-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  .features {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: #333;
+  }
+  
+  .consultation-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+  }
+  
+  

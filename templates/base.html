@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medico</title>
+    <!-- Bootstrap CSS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+     <!-- map --><link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+     <!-- css for slider -->
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+      <!-- css for slider -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css" rel="stylesheet" />
+    <link href=" {{url_for('static',filename='css/home.css') }}" rel="stylesheet" />
+</head>
+
+<body>
+
+    <!-- Top White Bar with Logo and Sign In / Register -->
+    <div class="top-bar">
+        <!-- Logo Image -->
+        <a href="#">
+            <img src="{{ url_for('static', filename='assets/images/protection.png') }}" alt="Clinic Logo" class="logo-image">
+            <span class="logo">Medico</span>
+        </a>
+        <div class="search-bar">
+            <img src="{{ url_for('static', filename='assets/images/search.png')}}" alt="" style="max-width: 30px;"> <!-- Unicode for search icon -->
+            <input type="text" placeholder="Search">
+        </div>
+        <!-- Sign In / Register Button -->
+        <div class="sign-in">
+            <a href="/login"><button type="button" class="btn btn-outline-primary">Login</button></a>
+        </div>    
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-custom sticky-top">
+        <div class="container-fluid">
+            <!-- Navbar links and search bar -->
+            <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/consultation">Book Appointment</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/lab">Lab Test</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Doctors</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Patient Portal</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/view-appointments/patient/1">view Appointment</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Toggler for smaller screens -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"><i class="fa-solid fa-bars"></i></span>
+            </button>
+        </div>
+    </nav>
+{%block body%}{% endblock%}
+<!-- footer -->
+<footer class="footer">
+</footer>
+    
+    <!-- Add Bootstrap and jQuery JS -->
+     <!-- for map --><script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="{{url_for('static',filename='js/script.js')}}"></script>
+</body>
+
+</html>

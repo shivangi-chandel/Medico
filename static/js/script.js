@@ -1,3 +1,6 @@
+document.addEventListener("DOMContentLoaded", function() {
+    AOS.init();
+});
 // slider
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -74,12 +77,6 @@ document.addEventListener('DOMContentLoaded', function() {
   
   });
   
-  
-    document.addEventListener("DOMContentLoaded", function () {
-      AOS.init({
-         
-      });
-  });
 
   
 document.addEventListener('DOMContentLoaded', function() {
@@ -208,5 +205,27 @@ document.addEventListener("DOMContentLoaded", () => {
             suggestionsList.innerHTML = "";
             suggestionsList.style.display = "none";
         }
+    });
+});
+$(document).ready(function(){
+    $(".testimonial-carousel").owlCarousel({
+        loop: true,
+        margin: 20,
+        autoplay: true,
+        autoplayTimeout: 2000,
+        autoplayHoverPause: true,
+        responsive: {
+            0: {
+                items: 1
+            },
+            768: {
+                items: 2
+            },
+            992: {
+                items: 2
+            }
+        },
+        nav: false,
+        dots: true
     });
 });

@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% block extra_css %}{% endblock%}
 {% block body %}
     <div class="wrap">
         <div id="dir-control-left" class="dir-control">
@@ -6,7 +7,7 @@
         </div>
         <div id="slider">
             <div class="slide slide1">
-                <div class="slide-content">
+                <div class="slide-content" data-aos="fade-up">
                     <h2>Your Path to Health and Wellness Begins Here</h2>
                     <p>Your Trusted Partner in Comprehensive Healthcare, Where Your Well-being is Our Priority, Providing Quality Care and Support for All Your Health Needs.</p>
                     
@@ -32,50 +33,11 @@
         </div>
     </div>
     
-                <!-- steps -->
-                             <!-- <div class="container-fluid">
-        <div class="row steps mt-5">
-            <div class="col-md-2 text-center col-2">
-                <hr>
-            </div>
-            <div class="col-md-1 col-1">
-                    <div class="step">
-                        <img src="./images/health-checkup.gif" alt="" class="img-fluid">
-                    </div>
-            </div>
-            <div class="col-md-2 text-center  col-2">
-                <hr>
-            </div>
-            <div class="col-md-1 col-1">
-                    <div class="step">
-                        <img src="./images/stethoscope.gif" alt="" class="img-fluid">
-                    </div>
-            </div>
-            <div class="col-md-2 text-center  col-2">
-                <hr>
-            </div>
-            <div class="col-md-1 col-1">
-                    <div class="step">
-                        <img src="./images/protection.gif" alt="" class="img-fluid">
-                    </div>
-            </div>
-            <div class="col-md-2 text-center col-2">
-                <hr>
-            </div>
-            <div class="col-md-1 col-1">
-                    <div class="step">
-                        <img src="./images/verified.gif" alt="" class="img-fluid">
-                    </div>
-            </div>
-        </div>
-      </div> -->
-                <!-- steps end -->
- <!-- hero section -->
     <section>
         <div class="container-fluid mb-4 pt-4 pb-3 bg-herosec">
               <div class="row">
                  <div class="col-md-6 amenities">
-                    <div class="amenities-part">
+                    <div class="amenities-part" data-aos="fade-up">
                         <span>Finest Patient</span>
                         <h2>Care & Amenities</h2>
                         
@@ -98,8 +60,8 @@
                             </div>
                         </div>
                     </div> 
-                    <div class="button-group mt-4 mb-5">
-                        <a href="#" class="btn btn-primary rounded-pill"><i class="fa-solid fa-phone-volume"
+                    <div class="button-group mt-4 mb-5" data-aos="fade-up">
+                        <a href="{{ url_for('doctors') }}" class="btn btn-primary rounded-pill"><i class="fa-solid fa-phone-volume"
                                 style="color: #113550; margin-right:1rem;"></i>Book an Appointment</a>
                         <a href="#" class="btn btn-outline-primary rounded-pill">Find a Doctor</a>
                     </div>
@@ -114,7 +76,7 @@
                         </div>
                     </div>                  
                  </div>
-                 <div class="col-md-6" >
+                 <div class="col-md-6" data-aos="fade-left" >
                      <img src="{{ url_for('static', filename='assets/images/hero_img.png')}}" alt="" class="img-fluid" style="margin: bottom -50px">
                  </div>
               </div>
@@ -199,10 +161,11 @@
     </div>
 
     <!-- Regular desktop/tablet view -->
-    <div class="desktop-view">
+    <div class="desktop-view" data-aos="zoom-in-up">
         <div class="row card-row">
             {% for department in departments %}
-            <div class="cards">
+            <div class="cards" data-aos="fade-up"
+            data-aos-duration="1000">
                 {% if department[4] %}
                 <img src="{{ department[4] }}" alt="Department Picture" style="width: 100px;">
                 {% else %}
@@ -217,43 +180,18 @@
     <!-- Mobile slider view -->
     <div class="swiper mobile-slider">
         <div class="swiper-wrapper">
+            {% for department in departments %}
             <div class="swiper-slide">
                 <div class="cards">
-                    <img src="{{ url_for('static', filename='assets/images/department_icon_1.svg')}}" alt="">
-                    <p>Emergency Department</p>
+                    {% if department[4] %}
+                    <img src="{{ department[4] }}" alt="Department Picture" style="width: 100px;">
+                    {% else %}
+                    No Picture
+                    {% endif %}
+                    <p>{{ department[2]}}</p>
                 </div>
             </div>
-            <div class="swiper-slide">
-                <div class="cards">
-                    <img src="./images/department_icon_2.svg" alt="">
-                    <p>Emergency Department</p>
-                </div>
-            </div>
-            <div class="swiper-slide">
-                <div class="cards">
-                    <img src="./images/department_icon_3.svg" alt="">
-                    <p>Emergency Department</p>
-                </div>
-            </div>
-            <div class="swiper-slide">
-                <div class="cards">
-                    <img src="./images/department_icon_5.svg" alt="">
-                    <p>Emergency Department</p>
-                </div>
-            </div>
-            <div class="swiper-slide">
-                <div class="cards">
-                    <img src="./images/department_icon_1.svg" alt="">
-                    <p>Emergency Department</p>
-                </div>
-            </div>
-            <div class="swiper-slide">
-                <div class="cards">
-                    <img src="./images/department_icon_6.svg" alt="">
-                    <p>Emergency Department</p>
-                </div>
-            </div>
-            
+            {% endfor %}            
         </div>
         <!-- Add navigation arrows -->
         <div class="swiper-button-prev"></div>
@@ -267,7 +205,7 @@
     <div class="row overlay">
         <div class="container">
             <div class="row">
-                <div class="col-lg-4 col-md-12 main-faci text-lg-start">
+                <div class="col-lg-4 col-md-12 main-faci text-lg-start" data-aos="fade-right">
                     <h2>
                         We always put our patients first
                     </h2>
@@ -276,7 +214,7 @@
                     </p>
                     <button class="btn btn-des">View Services <span>+</span></button>
                 </div>
-                <div class="col-lg-4 col-md-6 col-12 block-faci">
+                <div class="col-lg-4 col-md-6 col-12 block-faci" data-aos="fade-left">
                     <div class="row">
                         <div class="col-3">
                             <div class="box-icon">
@@ -300,7 +238,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 col-12 block-faci">
+                <div class="col-lg-4 col-md-6 col-12 block-faci" data-aos="fade-left">
                     <div class="row">
                         <div class="col-3">
                             <div class="box-icon">
@@ -330,13 +268,13 @@
 </div>
 
 <!-- appointment form -->
-<div class="container-fluid py-5 bg-form">
+<div class="container-fluid py-5 bg-form" >
     <div class="row justify-content-between align-items-center">
       <!-- Left side image -->
-      <div class="col-lg-3 mb-4 mb-lg-0">
+      <div class="col-lg-3 mb-4 mb-lg-0" data-aos="fade-right">
         <img src="{{ url_for('static', filename='assets/images/vecteezy_ai-generated-portrait-of-docto-young-woman-happy-smiling_41642091.png')}}" alt="Medical Care" class="img-fluid rounded">
       </div>
-      <div class="col-lg-4 mb-4 mb-lg-0">
+      <div class="col-lg-4 mb-4 mb-lg-0" data-aos="fade-up">
         <div class="mb-3 position-relative">
             <h1 class="h5">Find Hospitals Near You</h1>
             <input type="text" id="location" class="form-control mb-2" placeholder="Enter Location" />
@@ -346,7 +284,7 @@
         <div id="map"></div>
       </div>      
       <!-- Right side form -->
-      <div class="col-lg-5">
+      <div class="col-lg-5" data-aos="fade-up">
         <div class="appointment-form p-4 rounded">
           <div class="heading-block mb-4">
             <h2 class="text-primary d-inline-block m-0">BOOK AN</h2>
@@ -427,73 +365,154 @@
       </div>
     </div>
   </div>
-  
-<!-- end appointment form -->
-
-<!-- patient -->
- <!-- Reviews Section -->
-<div class="container mt-5">
-    <!-- Heading -->
-    <div class="text-center mb-5">
-        <h1 class="fw-bold" style="color: #31507D; font-size:50px; font-weight:700;">Some Reviews</h1>
-        <h2 class="text-primary">OF OUR CLIENTS</h2>
-    </div>
-
-    <!-- Timeline Reviews -->
-    <div class="row justify-content-center">
-        <div class="col-md-8 position-relative">
-            <!-- Timeline Line -->
-            <div class="timeline-line"></div>
-
-            <!-- Review 1 -->
-            <div class="review-item item-left d-flex align-items-center mb-5">
-                <div class="profile-image">
-                    <img src="{{ url_for('static', filename='assets/images/avatar_3.png')}}" alt="Paulo Hubert" class="rounded-circle">
-                </div>
-                <div class="profile-info ms-3">
-                    <h3 class="name">PAULO HUBERT</h3>
-                    <p class="location">New York, USA</p>
-                </div>
-                <div class="timeline-dot"></div>
-            </div>
-
-            <!-- Review 2 -->
-            <div class="review-item active-item d-flex align-items-center mb-5">
-                <div class="profile-image">
-                    <img src="{{ url_for('static', filename='assets/images/avatar_2.png')}}" alt="Laurence Vendetta" class="rounded-circle">
-                </div>
-                <div class="profile-info ms-3">
-                    <h3 class="name">LAURENCE VENDETTA</h3>
-                    <p class="location">California, USA</p>
-                </div>
-                <div class="timeline-dot active"></div>
-                <!-- Review Content -->
-                <div class="review-content">
-                    <div class="quote">"</div>
-                    <p>I recently had to bring my child to ProHealth for a minor injury, and I was so impressed with the care he received. The pediatrician was great with him and made him feel at ease, and the entire staff was kind and attentive.</p>
-                    <div class="rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
+  <!-- Testimonials Section -->
+<section class="testimonials-section">
+    <div class="container" data-aos="fade-up">
+        <div class="section-title">
+            <h2>TESTIMONIALS</h2>
+            <h1>Our Patients Says About Us</h1>
+        </div>
+        
+        <div class="owl-carousel testimonial-carousel owl-theme">
+            <!-- Testimonial 1 -->
+            <div class="item">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="quote-icon">
+                            <i class="fas fa-quote-left"></i>
+                        </div>
+                        <p class="testimonial-text">The care I received at this clinic was exceptional. The doctors were attentive and took the time to listen to all my concerns. I'm grateful for their expertise and compassion.</p>
+                        <div class="testimonial-author">
+                            <div class="author-img">
+                                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Patient">
+                            </div>
+                            <div class="author-info">
+                                <h4>John Smith</h4>
+                                <p>Patient</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <!-- Review 3 -->
-            <div class="review-item item-left d-flex align-items-center">
-                <div class="profile-image">
-                    <img src="{{ url_for('static', filename='assets/images/avatar_1.png')}}" alt="Cassandra Raul" class="rounded-circle">
+            
+            <!-- Testimonial 2 -->
+            <div class="item">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="quote-icon">
+                            <i class="fas fa-quote-left"></i>
+                        </div>
+                        <p class="testimonial-text">I've been coming to this clinic for years, and the quality of care has always been outstanding. The staff is friendly, and the doctors truly care about their patients' well-being.</p>
+                        <div class="testimonial-author">
+                            <div class="author-img">
+                                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Patient">
+                            </div>
+                            <div class="author-info">
+                                <h4>Sarah Johnson</h4>
+                                <p>Patient</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="profile-info ms-3">
-                    <h3 class="name">CASSANDRA RAUL</h3>
-                    <p class="location">Florida</p>
+            </div>
+            
+            <!-- Testimonial 3 -->
+            <div class="item">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="quote-icon">
+                            <i class="fas fa-quote-left"></i>
+                        </div>
+                        <p class="testimonial-text">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. It is a paradisematic country where roasted parts of sentences fly into your mouth.</p>
+                        <div class="testimonial-author">
+                            <div class="author-img">
+                                <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Patient">
+                            </div>
+                            <div class="author-info">
+                                <h4>Racky Henderson</h4>
+                                <p>Farmer</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="timeline-dot"></div>
+            </div>
+            
+            <!-- Testimonial 4 -->
+            <div class="item">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="quote-icon">
+                            <i class="fas fa-quote-left"></i>
+                        </div>
+                        <p class="testimonial-text">The state-of-the-art facilities combined with the expert medical team made my treatment experience smooth and effective. I highly recommend this clinic to anyone seeking quality healthcare.</p>
+                        <div class="testimonial-author">
+                            <div class="author-img">
+                                <img src="https://randomuser.me/api/portraits/women/28.jpg" alt="Patient">
+                            </div>
+                            <div class="author-info">
+                                <h4>Emily Taylor</h4>
+                                <p>Patient</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Testimonial 5 -->
+            <div class="item">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="quote-icon">
+                            <i class="fas fa-quote-left"></i>
+                        </div>
+                        <p class="testimonial-text">Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+                        <div class="testimonial-author">
+                            <div class="author-img">
+                                <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="Patient">
+                            </div>
+                            <div class="author-info">
+                                <h4>Michael Brown</h4>
+                                <p>Teacher</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<!-- end patient -->
-{% endblock %}    
+</section>
+<div class="container mb-4" data-aos="fade-up">
+    <img src="{{ url_for('static', filename='assets/images/circle_offer.png')}}" alt="" class="img-fluid">
+</div> 
+  <section class="section" data-aos="fade-up">
+    <div class="services">
+        <h2 style="color: var(--primary-green);">Our Health Services</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-apple-alt"></i>
+                </div>
+                <h3>Nutrition Plan</h3>
+                <p>Personalized diet plans tailored to your health goals and body type.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-dumbbell"></i>
+                </div>
+                <h3>Fitness Coaching</h3>
+                <p>Expert guidance on exercise routines and physical wellness.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-heartbeat"></i>
+                </div>
+                <h3>Holistic Wellness</h3>
+                <p>Comprehensive approach to mental and physical health.</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+{% block extra_js %}
+
+{% endblock %}

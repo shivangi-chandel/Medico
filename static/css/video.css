@@ -8,7 +8,6 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 40px;
     background-color: #ffecec;
   }
   
@@ -17,6 +16,7 @@ body {
   }
   
   .consultation-content h1 {
+    padding-top: 30px;
     font-size: 2.5rem;
     color: #000;
     margin-bottom: 10px;
@@ -78,4 +78,54 @@ body {
     border-radius: 10px;
   }
   
+  /* Position container for the carousel */
+  .position-relative {
+    position: relative;
+  }
+  
+  /* Custom navigation arrows container */
+  .owl-nav-custom {
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    pointer-events: none; /* This ensures clicks pass through to elements below */
+  }
+  
+  /* Common styles for arrow buttons */
+  .owl-prev-custom,
+  .owl-next-custom {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    pointer-events: auto; /* Enable clicks on the buttons */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Left arrow positioning */
+  .owl-prev-custom {
+    margin-left: -20px;
+  }
+  
+  /* Right arrow positioning */
+  .owl-next-custom {
+    margin-right: -20px;
+  }
+  
+  /* Hover effect */
+  .owl-prev-custom:hover,
+  .owl-next-custom:hover {
+    background-color: #fff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
   

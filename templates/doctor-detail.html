@@ -1,0 +1,163 @@
+{% extends "base.html" %}
+{% block extra_css %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+<style>
+        .profile-completion {
+            background: #f8f9fa;
+            min-height: 100vh;
+            padding: 50px 0;
+        }
+        .profile-form {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+        .profile-picture-preview {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 20px auto;
+            display: block;
+            border: 3px solid #4e73df;
+        }
+        .required-field::after {
+            content: "*";
+            color: red;
+            margin-left: 4px;
+        }
+    </style>
+{% endblock %}
+{% block body %}
+
+<div class="profile-completion">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="profile-form">
+                    <h2 class="text-center mb-4">Complete Your Doctor Profile</h2>
+                    <p class="text-center text-muted mb-4">Please complete your profile to access the dashboard</p>
+""
+                    <form id="doctorProfileForm" action="/doctor-detail" method="POST" enctype="multipart/form-data">
+                        <!-- Profile Picture -->
+                        <div class="text-center mb-4">
+                            <img id="profilePreview" src="assets/images/default-profile.png" 
+                                 class="profile-picture-preview" alt="Profile Preview">
+                            <div class="mt-2">
+                                <label for="profile_picture" class="btn btn-outline-primary">
+                                    <i class="fas fa-camera me-2"></i>Upload Profile Picture
+                                </label>
+                                <input type="file" id="profile_picture" name="profile_picture" 
+                                       accept="image/*" class="d-none" required>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <!-- Full Name -->
+                            <div class="col-md-6 mb-3">
+                                <label for="full_name" class="form-label required-field">Full Name</label>
+                                <input type="text" class="form-control" id="full_name" 
+                                       name="full_name" required>
+                            </div>
+
+                            <!-- Specialization -->
+                            <div class="col-md-6 mb-3">
+                                <label for="specialization" class="form-label required-field">Specialization</label>
+                                <select class="form-select" id="specialization" name="specialization" required>
+                                    <option value="">Select Specialization</option>
+                                    <option value="cardiology">Cardiology</option>
+                                    <option value="dermatology">Dermatology</option>
+                                    <option value="neurology">Neurology</option>
+                                    <option value="orthopedics">Orthopedics</option>
+                                    <option value="pediatrics">Pediatrics</option>
+                                    <option value="psychiatry">Psychiatry</option>
+                                </select>
+                            </div>
+
+                             <!-- Experience -->
+                             <div class="col-md-6 mb-3">
+                                <label for="experience" class="form-label required-field">Years of Experience</label>
+                                <input type="number" class="form-control" id="experience" 
+                                       name="experience" min="0" max="50" required>
+                            </div>
+
+                            <!-- Contact Number -->
+                            <div class="col-md-6 mb-3">
+                                <label for="contact_number" class="form-label required-field">Contact Number</label>
+                                <input type="tel" class="form-control" id="contact_number" 
+                                       name="contact_number" value="{{ doctor.contact_number if doctor else user.phone }}" required>
+                            </div>
+
+                            <!-- Email -->
+                            <div class="col-md-6 mb-3">
+                                <label for="email" class="form-label required-field">Email</label>
+                                <input type="email" class="form-control" id="email" 
+                                       name="email" value="{{ doctor.email if doctor else user.email }}" required>
+                            </div>
+
+                            <!-- Category -->
+                            <div class="col-md-6 mb-3">
+                                  <label for="category_id" class="form-label required-field">Category</label>
+                                  <select class="form-select" id="category_id" name="category_id" required>
+                                  <option value="">Select Category</option>
+                                    {% for category in categories %}
+                                         <option value="{{ category.category_id }}" data-fees="{{ category[2] }}"
+                                    {% if doctor and doctor.category_id == category.category_id %} selected {% endif %}>
+                                    {{ category.name }}
+                                    </option>
+                                    {% endfor %}
+                                  </select>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label for="consultation_fees" class="form-label required-field">Consultation Fees</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" class="form-control" id="consultation_fees" 
+                                           name="consultation_fees" value="{{ fees }}" readonly>
+                                </div>
+                            </div>
+
+                            <!-- Status -->
+                            <div class="col-md-6 mb-3">
+                                <label for="status" class="form-label required-field">Status</label>
+                                <select class="form-select" id="status" name="status" required>
+                                    <option value="active">Active</option>
+                                    <option value="on_leave">On Leave</option>
+                                    <option value="not_available">Not Available</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg px-5">
+                                Complete Profile
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+// Preview profile picture
+document.getElementById('profile_picture').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById('profilePreview').src = e.target.result;
+        }
+        reader.readAsDataURL(file);
+    }
+});
+</script>
+{% endblock%}
+{% endblock %}

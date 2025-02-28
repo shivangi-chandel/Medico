@@ -1,0 +1,980 @@
+{% extends "base.html" %}
+{% block extra_css %}
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+        }
+
+        .section {
+            padding: 40px 20px;
+            margin: 20px auto;
+            max-width: 1200px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 20px;
+        }
+
+        .card-title {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        .card-text {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            margin: 10px 0;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .tips-list {
+            list-style: none;
+            padding: 20px;
+        }
+
+        .tips-list li {
+            margin-bottom: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            border-left: 4px solid #3498db;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 1s ease-in;
+        }
+
+
+       
+        @media (max-width: 768px) {
+
+            .hero
+
+            .hero-content {
+                padding-right: 0;
+                text-align: center;
+            }
+        }
+
+
+        .hero {
+            display: flex;
+            align-items: center;
+            padding: 50px 10%;
+            background-color: rgb(251, 255, 255);
+
+        }
+
+        .hero-content {
+            flex: 1;
+            padding-right: 50px;
+        }
+
+        .hero-image {
+            flex: 1;
+
+        }
+
+        .hero-image img {
+            max-width: 100%;
+            border-radius: 30px;
+
+        }
+
+        .hero-title {
+            font-size: 2.5em;
+            color: rgb(69, 155, 224);
+            margin-bottom: 20px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+
+
+
+        /*health tip*/
+
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        /* New Advice Column Styles */
+        .advice-columns {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .advice-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .advice-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .advice-icon {
+            font-size: 2.5rem;
+            color: #3498db;
+            margin-bottom: 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .advice-card:hover .advice-icon {
+            transform: scale(1.2) rotate(360deg);
+        }
+
+        .advice-content {
+            height: 0;
+            opacity: 0;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .advice-card.active .advice-content {
+            height: auto;
+            opacity: 1;
+            margin-top: 1rem;
+        }
+
+        .advice-list {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .advice-list li {
+            margin: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .advice-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: #3498db;
+        }
+
+        /* Floating Animation */
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Pulse Animation */
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        /* Expert Card Enhancements */
+        .expert-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .expert-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .expert-card:hover::before {
+            left: 100%;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 5px;
+            background: #eee;
+            border-radius: 5px;
+            margin: 0.5rem 0;
+            overflow: hidden;
+        }
+
+        .progress {
+            width: 0;
+            height: 100%;
+            background: #3498db;
+            transition: width 1s ease;
+        }
+
+        /* New Loading Animation */
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 1rem auto;
+            display: none;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /*exprt consulth*/
+
+
+        .section-title {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: #3498db;
+            animation: expandWidth 2s ease-in-out infinite;
+        }
+
+        @keyframes expandWidth {
+
+            0%,
+            100% {
+                width: 100px;
+            }
+
+            50% {
+                width: 150px;
+            }
+        }
+
+        .experts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .expert-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transform: translateY(50px);
+            opacity: 0;
+            animation: slideIn 0.5s forwards;
+            position: relative;
+        }
+
+        @keyframes slideIn {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .expert-header {
+            background: linear-gradient(45deg, #3498db, #2c3e50);
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .expert-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 60%);
+            animation: rotate 10s linear infinite;
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .expert-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 20%;
+            border: 5px solid white;
+            margin: 0 auto;
+            display: block;
+            position: relative;
+            z-index: 1;
+            transition: transform 0.3s ease;
+        }
+
+        .expert-card:hover .expert-image {
+            transform: scale(1.1);
+        }
+
+        .expert-info {
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .expert-name {
+            color: #2c3e50;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .expert-title {
+            color: #3498db;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+
+        .expert-skills {
+            margin: 1.5rem 0;
+        }
+
+        .skill {
+            margin: 1rem 0;
+        }
+
+        .skill-name {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+        }
+
+        .skill-bar {
+            height: 8px;
+            background: #eee;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            width: 0;
+            height: 100%;
+            background: #3498db;
+            border-radius: 4px;
+            transition: width 1s ease;
+        }
+
+        .expert-contact {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1.5rem;
+        }
+
+        .contact-btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .primary-btn {
+            background: #3498db;
+            color: white;
+        }
+
+        .secondary-btn {
+            background: #eee;
+            color: #2c3e50;
+        }
+
+        .contact-btn:hover {
+            transform: translateY(-3px);
+        }
+
+        .expert-specialties {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+            margin: 1rem 0;
+        }
+
+        .specialty-tag {
+            background: #f0f7ff;
+            color: #3498db;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+{% endblock %}
+{% block body %}
+
+<div>
+    <!-- Hero Section -->
+    <section class="section">
+        <h1 class="section-title">Health & Wellness Blog</h1>
+        <div class="video-container">
+            <iframe src="{{ url_for('static', filename='assets/images/img/health1.jpg')}}" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </section>
+
+    <!-- Healthy Food Section -->
+    <section class="section" data-aos="fade-up">
+        <h2 class="section-title">Healthy Food Guide</h2>
+        <div class="card-container">
+            <div class="card" data-aos="flip-left">
+                <img src="{{ url_for('static', filename='assets/images/img/bf2.jpg')}}" alt="Healthy Breakfast">
+                <div class="card-content">
+                    <h3 class="card-title">Nutritious Breakfast Ideas</h3>
+                    <p class="card-text">Start your day with protein-rich breakfast options including oatmeal, eggs, and
+                        fresh fruits.</p>
+                </div>
+            </div>
+            <div class="card" data-aos="flip-left">
+                <img src="{{ url_for('static', filename='assets/images/img/lunch.jpg')}}" alt="Lunch Options">
+                <div class="card-content">
+                    <h3 class="card-title">Balanced Lunch Meals</h3>
+                    <p class="card-text">Quick and healthy lunch ideas packed with vegetables and lean proteins.</p>
+                </div>
+            </div>
+            <div class="card" data-aos="flip-left">
+                <img src="{{ url_for('static', filename='assets/images/img/snack.jpg')}}" alt="Healthy Snacks">
+                <div class="card-content">
+                    <h3 class="card-title">Smart Snacking</h3>
+                    <p class="card-text">Healthy snack alternatives to keep your energy levels stable throughout the
+                        day.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Exercise & Yoga Section -->
+    <section class="section" data-aos="fade-up">
+        <h2 class="section-title">Exercise & Yoga</h2>
+        <div class="card-container">
+            <div class="card" data-aos="zoom-in">
+                <div class="video-container">
+                    <iframe 
+                        src="https://www.youtube.com/embed/YvrKIQ_Tbsk?autoplay=1&mute=1" 
+                        frameborder="0" 
+                        allow="autoplay; encrypted-media" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                
+                <div class="card-content">
+                    <h3 class="card-title">Morning Yoga Routine</h3>
+                    <p class="card-text">Start your day with these energizing yoga poses for flexibility and strength.
+                    </p>
+                </div>
+            </div>
+            <div class="card" data-aos="zoom-in">
+                <div class="video-container">
+                    <iframe 
+                        src="https://www.youtube.com/embed/c06dTj0v0sM?autoplay=1&mute=1" 
+                        frameborder="0" 
+                        allow="autoplay; encrypted-media" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                <div class="card-content">
+                    <a href="https://www.youtube.com/watch?v=uZbig5yMlN8" style=" text-decoration: none">
+                        <h3 class="card-title">Healthy Aging with Nutrition</h3>
+                    </a>
+                    <p class="card-text">No-equipment exercises you can do at home for full-body fitness.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Health Tips Section -->
+    <section class="section" data-aos="fade-up">
+        <h2 class="section-title">Health Tips & Guides</h2>
+        <div>
+
+            <section>
+
+                <div>
+                    <div class="container">
+                        <section class="advice-columns">
+                            <div class="advice-card floating">
+                                <i class="fas fa-heartbeat advice-icon"></i>
+                                <h3>Daily Health Tips</h3>
+                                <div class="advice-content">
+                                    <ul class="advice-list">
+                                        <li>Start your day with a glass of water</li>
+                                        <li>Take 10-minute walking breaks</li>
+                                        <li>Practice mindful eating</li>
+                                        <li>Get 7-8 hours of sleep</li>
+                                    </ul>
+                                    <div class="progress-bar">
+                                        <div class="progress" data-target="75"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="advice-card pulse">
+                                <i class="fas fa-dumbbell advice-icon"></i>
+                                <h3>Fitness Recommendations</h3>
+                                <div class="advice-content">
+                                    <ul class="advice-list">
+                                        <li>30 minutes daily exercise</li>
+                                        <li>Mix cardio and strength training</li>
+                                        <li>Stay hydrated during workouts</li>
+                                        <li>Proper warm-up is essential</li>
+                                    </ul>
+                                    <div class="progress-bar">
+                                        <div class="progress" data-target="85"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="advice-card floating">
+                                <i class="fas fa-brain advice-icon"></i>
+                                <h3>Mental Wellness</h3>
+                                <div class="advice-content">
+                                    <ul class="advice-list">
+                                        <li>Practice daily meditation</li>
+                                        <li>Take regular breaks</li>
+                                        <li>Maintain work-life balance</li>
+                                        <li>Stay socially connected</li>
+                                    </ul>
+                                    <div class="progress-bar">
+                                        <div class="progress" data-target="90"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+
+                    <script>
+                        // Animate progress bars
+                        function animateProgressBars() {
+                            const progressBars = document.querySelectorAll('.progress');
+                            progressBars.forEach(bar => {
+                                const target = bar.getAttribute('data-target');
+                                bar.style.width = target + '%';
+                            });
+                        }
+
+                        // Toggle advice cards
+                        document.querySelectorAll('.advice-card').forEach(card => {
+                            card.addEventListener('click', () => {
+                                card.classList.toggle('active');
+                                if (card.classList.contains('active')) {
+                                    animateProgressBars();
+                                }
+                            });
+                        });
+
+                        // Intersection Observer for animations
+                        const observer = new IntersectionObserver((entries) => {
+                            entries.forEach(entry => {
+                                if (entry.isIntersecting) {
+                                    entry.target.style.opacity = '1';
+                                    entry.target.style.transform = 'translateY(0)';
+                                }
+                            });
+                        }, { threshold: 0.1 });
+
+                        document.querySelectorAll('.advice-card').forEach(card => {
+                            observer.observe(card);
+                        });
+
+                        // Add loading animation on form submit
+                        document.querySelector('form').addEventListener('submit', (e) => {
+                            e.preventDefault();
+                            const loadingSpinner = document.createElement('div');
+                            loadingSpinner.className = 'loading-spinner';
+                            e.target.appendChild(loadingSpinner);
+                            loadingSpinner.style.display = 'block';
+
+                            setTimeout(() => {
+                                loadingSpinner.style.display = 'none';
+                                document.getElementById('successMessage').style.display = 'block';
+                                e.target.reset();
+
+                                setTimeout(() => {
+                                    document.getElementById('successMessage').style.display = 'none';
+                                }, 3000);
+                            }, 1500);
+                        });
+
+                        // Initialize animations on page load
+                        window.addEventListener('load', () => {
+                            document.querySelectorAll('.progress').forEach(bar => {
+                                bar.style.width = '0%';
+                            });
+                        });
+                    </script>
+                </div>
+            </section>
+        </div>
+        <ul class="tips-list">
+            <li data-aos="fade-right">Stay hydrated by drinking at least 8 glasses of water daily. Set reminders if
+                needed.</li>
+            <li data-aos="fade-right">Get 7-9 hours of quality sleep each night for optimal health and recovery.</li>
+            <li data-aos="fade-right">Practice mindfulness or meditation for 10 minutes daily to reduce stress.</li>
+            <li data-aos="fade-right">Take regular breaks during work to avoid prolonged sitting.</li>
+            <li data-aos="fade-right">Include a variety of colorful fruits and vegetables in your daily diet.</li>
+        </ul>
+    </section>
+
+    <section class="section" data-aos="fade-up">
+        <div class="hero">
+            <div class="hero-content">
+                <h1 class="hero-title">Natural Diet Food For Best Health Transformation</h1>
+                <p class="hero-subtitle">Get daily tips from our experienced health coaches to lead a healthier and
+                    happier
+                    life.</p>
+
+            </div>
+            <div class="hero-image">
+                <img src="{{ url_for('static', filename='assets/images/img/lunch.jpg')}}" alt="Health Coach">
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- YouTube Health Channels Section -->
+    <section class="section" data-aos="fade-up">
+        <h2 class="section-title">Recommended Health Channels</h2>
+        <div class="card-container">
+            <div class="card" data-aos="fade-up">
+                <div class="video-container">
+                    <iframe 
+                    src="https://www.youtube.com/embed/W23xfdEqHtg?autoplay=1&mute=1" 
+                    frameborder="0" 
+                    allow="autoplay; encrypted-media" 
+                    allowfullscreen>
+                </iframe>
+                
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Fitness Essentials</h3>
+                    <p class="card-text">Weekly workout routines and fitness tips for all levels.</p>
+                </div>
+            </div>
+            <div class="card" data-aos="fade-up">
+                <div class="video-container">
+                    <iframe 
+                    src="https://www.youtube.com/embed/Evji_ebWZQU?autoplay=1&mute=1" 
+                    frameborder="0" 
+                    allow="autoplay; encrypted-media" 
+                    allowfullscreen>
+                </iframe>
+                
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Nutrition Made Simple</h3>
+                    <p class="card-text">Easy-to-follow nutrition advice and healthy recipes.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            AOS.init({
+                duration: 1000,
+                once: true,
+                offset: 100
+            });
+        });
+    </script>
+
+    <script>
+        // Simple email validation
+        document.querySelector('.email-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const email = document.querySelector('.email-input').value;
+            if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                alert('Thank you for subscribing!');
+            } else {
+                alert('Please enter a valid email address.');
+            }
+        });
+    </script>
+
+    <section class="section" data-aos="fade-up">
+        <div>
+            <h1 class="section-title">Our Health Experts</h1>
+
+            <div class="experts-grid">
+                <div class="expert-card" style="animation-delay: 0.2s;">
+                    <div class="expert-header">
+                        <img src="{{ url_for('static', filename='assets/images/img/doctor2.jpg')}}" alt="Dr. Sarah Wilson" class="expert-image">
+                    </div>
+                    <div class="expert-info">
+                        <h2 class="expert-name">Dr. Sarah Wilson</h2>
+                        <p class="expert-title">Nutrition Specialist</p>
+
+                        <div class="expert-specialties">
+                            <span class="specialty-tag">Diet Planning</span>
+                            <span class="specialty-tag">Weight Management</span>
+                            <span class="specialty-tag">Sports Nutrition</span>
+                        </div>
+
+
+
+                        <div class="expert-skills">
+                            <div class="skill">
+                                <div class="skill-name">
+                                    <span>Nutrition Planning</span>
+                                    <span>95%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-progress="95"></div>
+                                </div>
+                            </div>
+                            <div class="skill">
+                                <div class="skill-name">
+                                    <span>Diet Therapy</span>
+                                    <span>90%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-progress="90"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="expert-contact">
+                            <button class="contact-btn primary-btn">Book Consultation</button>
+                            <button class="contact-btn secondary-btn">View Profile</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="expert-card" style="animation-delay: 0.4s;">
+                    <div class="expert-header">
+                        <img src="{{ url_for('static', filename='assets/images/img/doctor1.jpg')}}" alt="Dr. James Chen" class="expert-image">
+                    </div>
+                    <div class="expert-info">
+                        <h2 class="expert-name">Dr. James Chen</h2>
+                        <p class="expert-title">Physical Therapy Specialist</p>
+
+                        <div class="expert-specialties">
+                            <span class="specialty-tag">Sports Injury</span>
+                            <span class="specialty-tag">Rehabilitation</span>
+                            <span class="specialty-tag">Pain Management</span>
+                        </div>
+
+
+
+                        <div class="expert-skills">
+                            <div class="skill">
+                                <div class="skill-name">
+                                    <span>Physical Therapy</span>
+                                    <span>92%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-progress="92"></div>
+                                </div>
+                            </div>
+                            <div class="skill">
+                                <div class="skill-name">
+                                    <span>Sports Medicine</span>
+                                    <span>88%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-progress="88"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="expert-contact">
+                            <button class="contact-btn primary-btn">Book Consultation</button>
+                            <button class="contact-btn secondary-btn">View Profile</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+</div>
+            {% endblock %}
+{% block extra_js %}
+            <script>
+                // Animate skill bars when they come into view
+                function animateSkillBars() {
+                    const skillBars = document.querySelectorAll('.skill-progress');
+                    skillBars.forEach(bar => {
+                        const progress = bar.getAttribute('data-progress');
+                        bar.style.width = progress + '%';
+                    });
+                }
+
+                // Create intersection observer
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            animateSkillBars();
+                        }
+                    });
+                }, { threshold: 0.5 });
+
+                // Observe expert cards
+                document.querySelectorAll('.expert-card').forEach(card => {
+                    observer.observe(card);
+                });
+
+                // Add hover effects
+                document.querySelectorAll('.expert-card').forEach(card => {
+                    card.addEventListener('mouseover', () => {
+                        card.style.transform = 'translateY(-10px)';
+                        card.style.boxShadow = '0 15px 30px rgba(0,0,0,0.2)';
+                    });
+
+                    card.addEventListener('mouseout', () => {
+                        card.style.transform = 'translateY(0)';
+                        card.style.boxShadow = '0 10px 20px rgba(0,0,0,0.1)';
+                    });
+                });
+
+                // Initialize animations
+                window.addEventListener('load', () => {
+                    setTimeout(animateSkillBars, 500);
+                });
+            </script>
+
+        </div>
+    </section>
+
+    {% endblock %}

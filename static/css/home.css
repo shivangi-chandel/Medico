@@ -129,18 +129,45 @@
   transition: all .5s ease-in-out;
 }
 
-/* search bar */
+.top-bar {  
+  background-color: white;
+  padding: 10px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+}
+
+.top-bar a {
+  text-decoration: none;
+}
+
+.logo {
+  color: #3368c6;
+  font-size: 30px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  white-space: nowrap;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+}
+
 .search-bar {
   display: flex;
   align-items: center;
   width: 500px;
   height: 2.7rem;
   border-radius: 30px;
-
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   padding: 10px 20px;
   border: 2px solid #87ceeb;
   transition: all 0.3s ease;
+  margin: 0 20px;
+  min-width: 300px;
 }
 
 .search-bar:hover {
@@ -158,32 +185,159 @@
 }
 
 .search-bar input::placeholder {
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(22, 16, 89, 0.6);
 }
 
 .search-icon {
-  color: white;
+    max-width: 30px;
+  color: #161059;
   font-size: 18px;
   margin-right: 10px;
 }
 
-/* Custom Styles */
-.logo {
-  color: #3368c6;
-  font-size: 30px;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-}
-
-.top-bar {
-  background-color: white;
-  padding: 10px 30px;
-  display: flex;
-  justify-content: space-between;
+.auth-buttons {
   align-items: center;
 }
 
-.top-bar a {
-  text-decoration: none;
+.auth-buttons .btn {
+  margin-left: 10px;
+  border-radius: 20px;
+  font-family: 'Poppins', sans-serif;
+  transition: all 0.3s ease;
+}
+
+.btn-signin, .btn-signup {
+  background-color: white;
+  color: #161059;
+  border: #87ceeb solid 1px;
+  border-radius: 20px; /* Capsule shape */
+  padding: 6px 15px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  margin-right: 20px;
+}
+
+.btn-signin:hover {
+  background-color: #3368c6;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.btn-signup:hover {
+  background-color: #274760;
+  border-color: #274760;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+/* Profile Section */
+.profile-section {
+  display: flex;
+  align-items: center;
+  background: white;
+  padding: 5px 10px;
+  border-radius: 25px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  margin-left: 10px;
+}
+
+.profile-section:hover {
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Profile Image */
+.profile-image {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%; /* Circular shape */
+  object-fit: cover;
+  margin-right: 8px;
+}
+
+/* Profile Name */
+.profile-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .profile-section {
+    display: none; /* Hide profile section on small screens */
+  }
+}
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .top-bar {
+    flex-direction: row;
+  }
+
+  .search-bar {
+    display: none; /* Hide search bar on small screens */
+  }
+
+  .auth-buttons {
+    justify-content: flex-end;
+  }
+}
+/* Social Media Icons Container */
+.social-icons {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+/* Default Icon Styles */
+.social-icons a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #f1f1f1; /* Light gray background */
+  transition: all 0.3s ease-in-out;
+}
+
+/* Icon Size */
+.social-icons a i {
+  font-size: 24px;
+  color: #333; /* Default icon color */
+  transition: color 0.3s ease-in-out;
+}
+
+/* Hover Effects - Change to Brand Colors */
+.social-icons a:hover {
+  transform: scale(1.1); /* Slight zoom effect */
+}
+
+.social-icons a.facebook:hover {
+  background-color: #1877f2; /* Facebook Blue */
+}
+
+.social-icons a.facebook:hover i {
+  color: white;
+}
+
+.social-icons a.instagram:hover {
+  background: linear-gradient(45deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5); /* Instagram gradient */
+}
+
+.social-icons a.instagram:hover i {
+  color: white;
+}
+
+.social-icons a.whatsapp:hover {
+  background-color: #25d366; /* WhatsApp Green */
+}
+
+.social-icons a.whatsapp:hover i {
+  color: white;
 }
 
 .navbar-custom {
@@ -270,6 +424,8 @@ hr {
   border-radius: 10px;
   padding-left: 5px;
 }
+
+
 @media only screen and (max-width: 768px){
   .amenities{
     padding-left: 1rem ;
@@ -506,156 +662,6 @@ background-color: #3369c660;
 }
 /* patient section */
 /* Reviews Section Styles */
-.timeline-line {
-  position: absolute;
-  left: 50%;
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  background-color: #007bff;
-  transform: translateX(-50%);
-}
-
-.item-left {
-  margin-left: -200px;
-}
-
-.active-item {
-  margin-left: -80px;
-}
-
-.profile-image img {
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
-  border: 3px solid white;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.profile-info .name {
-  color: #31507D;
-  font-size: 1.2rem;
-  font-weight: bold;
-  margin-bottom: 0;
-  padding-left: 20px;
-}
-
-.profile-info .location {
-  color: #666;
-  font-size: 0.9rem;
-  margin-bottom: 0;
-  padding-left: 20px;
-}
-
-.timeline-dot {
-  position: absolute;
-  left: 50%;
-  width: 15px;
-  height: 15px;
-  background-color: white;
-  border: 2px solid #007bff;
-  border-radius: 50%;
-  transform: translateX(-50%);
-}
-
-.timeline-dot.active {
-  background-color: #007bff;
-}
-
-.review-content {
-  position: absolute;
-  left: calc(50% + 30px);
-  background-color: white;
-  padding: 25px;
-  border-radius: 10px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-  width: 400px;
-  max-width: 90%;
-  margin-left: 100px;
-}
-
-.quote {
-  position: absolute;
-  top: -20px;
-  left: 20px;
-  font-size: 60px;
-  color: #007bff;
-  font-family: Arial, sans-serif;
-}
-
-.rating {
-  color: #007bff;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .timeline-line {
-    display: none; /* Hide the timeline line on smaller screens */
-  }
-
-  .timeline-dot {
-    display: none; /* Hide timeline dots on smaller screens */
-  }
-
-  .item-left, .active-item {
-    margin-left: 0; /* Remove negative margins for proper alignment */
-  }
-
-  .review-item {
-    text-align: center; /* Center content on smaller screens */
-    margin-bottom: 40px;
-  }
-
-  .profile-info {
-    text-align: center;
-    padding-left: 0; /* Align text centrally */
-  }
-
-  .review-content {
-    position: static;
-    margin: 20px auto; /* Center content with automatic margins */
-    width: calc(100% - 40px); /* Ensure proper spacing */
-  }
-
-  .quote {
-    top: -10px;
-    left: 10px;
-    font-size: 40px;
-  }
-
-  .profile-image img {
-    width: 80px; /* Reduce image size for smaller screens */
-    height: 80px;
-  }
-}
-
-@media (max-width: 576px) {
-  .review-content {
-    padding: 15px; /* Adjust padding for very small screens */
-  }
-
-  .quote {
-    font-size: 30px;
-  }
-}
-
-
-/* Hover Effects */
-.review-item:hover .profile-image img {
-  transform: scale(1.1);
-  transition: transform 0.3s ease;
-}
-
-.review-content:hover {
-  transform: translateY(-5px);
-  transition: transform 0.3s ease;
-}
-
-.rating i:hover {
-  transform: scale(1.2);
-  transition: transform 0.2s ease;
-}
-
 
 .facility-bg {
   margin-top: 50px;
@@ -920,4 +926,248 @@ input[type="date"].custom-input {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+}
+.footer {
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  color: white;
+  padding: 60px 0 30px 0;
+}
+
+.footer-logo {
+  max-width: 200px;
+  margin-bottom: 20px;
+}
+
+.footer-links a {
+  color: white;
+  text-decoration: none;
+  display: block;
+  margin-bottom: 10px;
+  transition: all 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: #8BB8F8;
+  transform: translateX(5px);
+}
+
+.social-icon {
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+  transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+  background: white;
+  transform: translateY(-3px);
+}
+
+.social-icon:hover i {
+  color: #1e3c72;
+}
+
+.subscribe-form input {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+.subscribe-form input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.subscribe-form .btn {
+  background: #8BB8F8;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.subscribe-form .btn:hover {
+  background: white;
+  color: #1e3c72;
+  transform: translateY(-2px);
+}
+.services {
+  padding: 50px 10%;
+  text-align: center;
+  background-color: rgb(255, 255, 255);
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.service-card {
+  background-color: rgb(241, 245, 245);
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: #666;
+  transition: transform 0.3s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-10px);
+}
+
+.service-icon {
+  font-size: 4em;
+  color: rgb(57, 172, 238);
+  margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+
+  .hero,
+  .services-grid {
+      flex-direction: column;
+      grid-template-columns: 1fr;
+  }
+
+  .hero-content {
+      padding-right: 0;
+      text-align: center;
+  }
+}
+.testimonials-section {
+  padding: 80px 0;
+  background-color: #f8f9fa;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.section-title h2 {
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #4e73df;
+  letter-spacing: 2px;
+}
+
+.section-title h1 {
+  font-size: 42px;
+  font-weight: 700;
+  color: #333;
+  margin-top: 10px;
+}
+
+.testimonial-card {
+  background-color: #fff;
+  border-radius: 15px;
+  padding: 30px;
+  margin: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  height: 100%;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+.testimonial-content {
+  position: relative;
+  padding-top: 30px;
+}
+
+.quote-icon {
+  font-size: 50px;
+  color: #4e73df;
+  opacity: 0.2;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.testimonial-text {
+  font-size: 16px;
+  color: #666;
+  line-height: 1.8;
+  margin-bottom: 25px;
+  font-style: italic;
+  position: relative;
+  z-index: 1;
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+}
+
+.author-img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 15px;
+  border: 3px solid #4e73df;
+}
+
+.author-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.author-info h4 {
+  font-size: 18px;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.author-info p {
+  font-size: 14px;
+  color: #4e73df;
+  margin: 0;
+}
+
+.owl-dots {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.owl-dot {
+  display: inline-block;
+  margin: 0 5px;
+}
+
+.owl-dot span {
+  display: block;
+  width: 12px;
+  height: 12px;
+  background: #d6d6d6;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.owl-dot.active span {
+  background: #4e73df;
+  width: 25px;
+  border-radius: 10px;
+}
+
+.owl-nav {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .section-title h1 {
+      font-size: 30px;
+  }
+  
+  .testimonial-card {
+      padding: 20px;
+  }
 }

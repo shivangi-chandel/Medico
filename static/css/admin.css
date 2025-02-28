@@ -226,6 +226,17 @@ a {
     color: #f1d243;
 }
 
+.delete-btn {
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: red;
+    font-size: 1.2rem;
+}
+
+.delete-btn:hover {
+    color: darkred;
+}
 .main--content {
     position: absolute;
     top: 0;
@@ -251,6 +262,7 @@ a {
 
 .section--title {
     font-weight: 400;
+    font-size: 1.5rem;
 }
 
 .dropdown {

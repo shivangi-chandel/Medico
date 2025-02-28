@@ -1,0 +1,813 @@
+{% extends "base.html" %}
+
+
+    {% block extra_css %}
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f1f5f9;
+            min-height: 100vh;
+        }
+
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-circle {
+            width: 5rem;
+            height: 5rem;
+            background-color: #333;
+            background-image: url("img/healthcare.png");
+            border-radius: 50%;
+        }
+
+        .search-container {
+            flex: 1;
+            max-width: 36rem;
+            margin: 0 1rem;
+            position: relative;
+        }
+
+        .search-container input {
+            width: 100%;
+            padding: 0.5rem 1rem 0.5rem 2.5rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+        }
+
+        .book-btn {
+            background-color: #1678f9;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+        }
+
+        .main-container {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .sidebar {
+            width: 5rem;
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .sidebar-icon {
+            width: 1.5rem;
+            height: 1.5rem;
+            padding: 0.5rem;
+            cursor: pointer;
+            border-radius: 0.25rem;
+        }
+
+        .sidebar-icon:hover {
+            background-color: #eff6ff;
+        }
+
+        .main-content {
+            flex: 1;
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .back-btn {
+            color: #2563eb;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .page-title {
+            color: #2563eb;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 1024px) {
+            .grid-container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .profile-card,
+        .overview-card {
+            background-color: #f8fafc;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            margin: 2.5px;
+        }
+
+        .profile-info {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .profile-img {
+            width: 4rem;
+            height: 4rem;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .contact-details {
+            margin-top: 1rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            color: #64748b;
+        }
+
+        .overview-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .overview-item label {
+            color: #64748b;
+            font-size: 0.875rem;
+        }
+
+        .lab-results {
+            margin-top: 1.5rem;
+
+        }
+
+        .lab-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem;
+            background-color: #f8fafc;
+            border-radius: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .file-info {
+            display: flex;
+            align-items: baseline;
+            gap: 0.75rem;
+        }
+
+        .action-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .action-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem;
+            background-color: #f8fafc;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+        }
+
+        .action-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            background-color: #dbeafe;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #3b82f6;
+        }
+
+
+
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .profile-image2 {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 2rem;
+            border: 4px solid #007bff;
+        }
+
+        .profile-info {
+            flex-grow: 1;
+        }
+
+        .profile-info h1 {
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-info p {
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: white;
+            border: none;
+        }
+
+        .btn-secondary {
+            background-color: #f8f9fa;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+
+        .profile-sections {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+
+        .medical-info,
+        .quick-actions {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .info-item {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 4px;
+        }
+
+        .info-item label {
+            display: block;
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+
+        .quick-actions-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        .quick-action {
+            display: flex;
+            align-items: center;
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .quick-action:hover {
+            background-color: #e9ecef;
+        }
+
+        .quick-action-icon {
+            margin-right: 1rem;
+            color: #007bff;
+        }
+
+        .medical-history {
+            margin-top: 2rem;
+            background: #b6e0ec;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .history-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .history-item:last-child {
+            border-bottom: none;
+        }
+        .video-appointment-section {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .appointments-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .appointment-card {
+            background: white;
+            border: 1px solid #eaeaea;
+            border-radius: 12px;
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.3s ease;
+        }
+
+        .appointment-card:hover {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border-color: #d0d0d0;
+            transform: translateY(-1px);
+        }
+
+        .appointment-info {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .time-block {
+            text-align: center;
+            min-width: 100px;
+            padding: 8px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .time {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1a73e8;
+            margin: 0;
+        }
+
+        .date {
+            font-size: 0.85rem;
+            color: #666;
+            margin: 4px 0 0 0;
+        }
+
+        .doctor-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .doctor-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #f1f3f4, #e8eaed);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #fff;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+        }
+
+        .doctor-avatar i {
+            color: #5f6368;
+            font-size: 20px;
+        }
+
+        .doctor-details {
+            line-height: 1.3;
+        }
+
+        .doctor-name {
+            font-weight: 500;
+            color: #202124;
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        .appointment-type {
+            color: #5f6368;
+            font-size: 0.85rem;
+            margin: 2px 0 0 0;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .appointment-type i {
+            color: #1a73e8;
+            font-size: 0.9rem;
+        }
+
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            background: #e8f0fe;
+            color: #1a73e8;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .join-call-btn {
+            background: #1a73e8;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .join-call-btn:hover {
+            background: #1557b0;
+            box-shadow: 0 2px 6px rgba(26, 115, 232, 0.3);
+        }
+
+        .join-call-btn i {
+            font-size: 1rem;
+        }
+
+        .room-id {
+            font-size: 0.85rem;
+            color: #5f6368;
+            margin-right: 16px;
+        }
+
+        .actions {
+            display: flex;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .appointment-card {
+                padding: 12px 16px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+
+            .appointment-info {
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+
+            .actions {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .time-block {
+                min-width: 80px;
+            }
+        }
+    </style>
+{% endblock %}
+
+
+{% block body %}
+    <!-- Top Navigation -->
+    {% if not patient.full_name or not patient.contact_number or not patient.email %}
+    <div class="alert alert-warning text-center">
+        <strong>Complete Your Profile!</strong> Please complete your profile to access all features. 
+        <a href="{{ url_for('patient_form') }}" class="btn btn-primary">Complete Now</a>
+    </div>
+    {% endif %}
+    <nav class="top-nav">
+        <div class="logo">
+            <div class="logo-circle"><img src="{{ patient.profile_picture if patient.profile_picture else 'img/default-profile.png' }}" height="80" width="100"></div>
+            <span class="text-xl font-bold"></span>
+        </div>
+
+        <div class="search-container">
+            <span class="search-icon">🔍</span>
+            <input type="text" placeholder="Search">
+        </div>
+
+        <button class="book-btn">Book Appointment</button>
+    </nav>
+
+    <div class="main-container container">
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="header">
+                <button class="back-btn">←</button>
+                <h1 class="page-title">Patient Profile</h1>
+            </div>
+
+            <div class="grid-container">
+                <!-- Profile Info -->
+                {% if patient %}
+    <div class="profile-card">
+        <div class="profile-info">
+            <img src="{{ patient.profile_picture if patient.profile_picture else 'img/default-profile.png' }}" alt="Patient" class="profile-img">
+            <div>
+                <h2>{{ patient.full_name }}</h2>
+                <div class="contact-details">
+                    <p>Patient ID: {{ patient.patient_id }}</p>
+                    <div class="contact-item">📱 {{ patient.contact_number }}</div>
+                    <div class="contact-item">📧 {{ patient.email }}</div>
+                    <div class="contact-item">📍 {{ patient.address }} {{ patient.city }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                <!-- Overview -->
+                <div class="overview-card">
+                    <h3>Overview:</h3>
+                    <div class="overview-grid">
+                        <div class="overview-item">
+                            <label>Gender</label>
+                            <p>{{ patient.gender }}</p>
+                        </div>
+                        <div class="overview-item">
+                            <label>Age</label>
+                            <p>{{ patient.age }}</p>
+                        </div>
+                        <div class="overview-item">
+                            <label>Date of Birth</label>
+                            <p>{{ patient.dob }}</p>
+                        </div>
+                        <div class="overview-item">
+                            <label>Last Visit</label>
+                            <p>{{ patient.last_visit }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="alert alert-warning text-center">
+                <strong>No profile found.</strong> Please complete your profile.
+                <a href="{{ url_for('patient_form') }}" class="btn btn-primary">Complete Now</a>
+            </div>
+        {% endif %}
+            <!-- </div> -->
+
+            <!-- Lab Results -->
+            <div class="gird-container">
+                <div class="lab-results">
+                    <h3>Latest Lab Results:</h3>
+                    <div class="lab-item">
+                        <div class="file-info">
+                            <span>📄</span>
+                            <span>Ovarian Scan, 25 Nov</span>
+                        </div>
+                        <div>
+                            <span>2.7 MB</span>
+                            <span>⬇️</span>
+                        </div>
+                    </div>
+                    <div class="lab-item">
+                        <div class="file-info">
+                            <span>📄</span>
+                            <span>XYZ Blood Tests</span>
+                        </div>
+                        <div>
+                            <span>0.7 MB</span>
+                            <span>⬇️</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <section class="video-appointment-section">
+                <div class="appointments-list">
+                    <h2 class="section-title">Upcoming Appointments</h2>
+                    {% if bookings %}
+                    {% for booking in bookings %}
+                               
+                    <!-- Upcoming Appointment -->
+                    <div class="appointment-card">
+                        <div class="appointment-info">
+                            <div class="time-block">
+                                <p class="time">{{ booking.time }}</p>
+                                <p class="date">{{ booking.date }}</p>
+                            </div>
+                            
+                            <div class="doctor-info">
+                                <div class="doctor-avatar">
+                                    <i class="fas fa-user-md"></i>
+                                </div>
+                                <div class="doctor-details">
+                                    <p class="doctor-name">{{ booking.doctor_name }}</p>
+                                    <p class="appointment-type">
+                                        <i class="fas fa-video"></i>
+                                        Video Consultation
+                                    </p>
+                                </div>
+                            </div>
+            
+                            <div class="status-badge" style="background: #fce8e8; color: #d93025;">
+                                <i class="fas fa-clock"></i>
+                                Upcoming
+                            </div>
+                        </div>
+            
+                        <div class="actions">
+                            <span class="room-id">{{ booking.room_name }}</span>
+                            <a href="{{url_for('video_call')}}"><button class="join-call-btn">
+                                <i class="fas fa-video"></i>
+                                Join Call
+                            </button></a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% else %}
+                    <p>No bookings found.</p>
+                    {% endif %}
+                </div>
+            </section>   
+
+            <div class="profile-sections">
+                <div class="medical-info">
+                    <h2 class="section-title">Medical Information</h2>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <label>Height</label>
+                            <span>{{ patient.height_feet}}'{{ patient.height_inch}}</span>
+                        </div>
+                        <div class="info-item">
+                            <label>Weight</label>
+                            <span>{{ patient.weight }}</span>
+                        </div>
+                        <div class="info-item">
+                            <label>Allergies</label>
+                            <span>{{ patient.allergies }}</span>
+                        </div>
+                        <div class="info-item">
+                            <label>Chronic Conditions</label>
+                            <span>{{ patient.chronic_conditions }}</span>
+                        </div>
+                        <div class="info-item">
+                            <label>Blood Group</label>
+                            <span>{{ patient.blood_group }}</span>
+                        </div>
+                        <div>
+                            <button class="btn btn-primary">Edit Profile</button>
+                            <button class="btn btn-secondary">Change Password</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quick-actions">
+                    <h2 class="section-title">Quick Actions</h2>
+                    <div class="quick-actions-grid">
+                        <div class="quick-action">
+                            <div class="quick-action-icon">📋</div>
+                            <span>Book New Test</span>
+                        </div>
+                        <div class="quick-action">
+                            <div class="quick-action-icon">📄</div>
+                            <span>View Test Reports</span>
+                        </div>
+                        <div class="quick-action">
+                            <div class="quick-action-icon">👨‍⚕️</div>
+                            <span>Consult Doctor</span>
+                        </div>
+                        <div class="quick-action">
+                            <div class="quick-action-icon">💊</div>
+                            <span>Medicine Refill</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="medical-history">
+                <h2 class="section-title">Recent Medical History</h2>
+                <div class="history-item">
+                    <div>
+                        <strong>Full Body Checkup</strong>
+                        <p>Apollo Hospitals - 15 Jan 2025</p>
+                    </div>
+                    <a href="#" class="btn btn-secondary">View Report</a>
+                </div>
+                <div class="history-item">
+                    <div>
+                        <strong>Lipid Profile Test</strong>
+                        <p>Apollo 24/7 Lab - 20 Dec 2024</p>
+                    </div>
+                    <a href="#" class="btn btn-secondary">View Report</a>
+                </div>
+                <div class="history-item">
+                    <div>
+                        <strong>Diabetes Screening</strong>
+                        <p>Apollo Hospitals - 10 Nov 2024</p>
+                    </div>
+                    <a href="#" class="btn btn-secondary">View Report</a>
+                </div>
+            </div>
+            <div class="container">
+                <div class="profile-header">
+                    <div class="profile-actions">
+                        <button class="btn btn-primary">Edit Profile</button>
+                        <button class="btn btn-secondary">Change Password</button>
+                    </div>
+                </div>
+            </div>
+    </div>
+    </main>
+    </div>
+{% endblock %} 

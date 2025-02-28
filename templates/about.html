@@ -1,0 +1,440 @@
+{% extends "base.html" %}
+{% block extra_css %}
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /*
+        :root {
+            --primary-green: #4CAF50;
+            --secondary-green: #81C784;
+            --light-background: #F0F4F0;
+            --text-color: #333;
+        }*/
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+
+        .hero {
+            background: linear-gradient(rgba(0, 90, 135, 0.28), rgba(0, 90, 135, 0.74)),
+                url('{{ url_for('static', filename='assets/images/h1-elliptical-slider-img-3.jpg')}}');
+            background-size: cover;
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Team Section */
+        .team-section {
+            background: white;
+            padding: 80px 0;
+
+
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 3fr));
+            gap: 0px;
+
+        }
+
+        .team-member {
+            background: var(--light-background);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            position: relative;
+            background-color: rgba(0, 90, 135, 0.9);
+            color: #f4f4f4;
+            margin: 20px;
+
+        }
+
+        .team-member:hover {
+            transform: scale(1.05);
+        }
+
+        .team-member img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            filter: grayscale(50%);
+            transition: filter 0.3s ease;
+        }
+
+        .team-member:hover img {
+            filter: grayscale(0);
+        }
+
+        .member-info {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .member-socials {
+            display: flex;
+            justify-content: center;
+            margin-top: 15px;
+        }
+
+        .member-socials a {
+            color: var(--primary-green);
+            margin: 0 10px;
+            font-size: 1.5em;
+            transition: color 0.3s ease;
+        }
+
+        .member-socials a:hover {
+            color: var(--secondary-green);
+        }
+
+        /* Mission Section */
+        .mission-section {
+            background-color: rgba(0, 90, 135, 0.9);
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .mission-values {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 50px;
+        }
+
+        .mission-value {
+            flex: 1;
+            padding: 20px;
+            margin: 0 15px;
+            background: white;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+            color: rgba(0, 90, 135, 0.9);
+        }
+
+        .mission-value:hover {
+            transform: translateY(-15px);
+        }
+
+        .mission-value i {
+            font-size: 3em;
+            color: var(--primary-green);
+            margin-bottom: 20px;
+        }
+
+        /* Achievements Section */
+        .achievements-section {
+            background-color: var(--light-background);
+            padding: 80px 0;
+
+        }
+
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+
+        }
+
+        .achievement-card {
+            background: white;
+            padding: 30px;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+
+            color: rgba(0, 90, 135, 0.9);
+
+        }
+
+        .achievement-card:hover {
+            transform: rotate(3deg);
+        }
+
+        .achievement-number {
+            font-size: 3em;
+            color: var(--primary-green);
+            font-weight: bold;
+
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+
+            .mission-values,
+            .team-grid,
+            .achievements-grid {
+                flex-direction: column;
+
+            }
+
+            .mission-value,
+            .team-member,
+            .achievement-card {
+                margin: 15px 0;
+            }
+        }
+
+        .mission-vision {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+
+        }
+
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .cta-section {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: rgba(0, 90, 135, 0.9);
+            color: white;
+        }
+
+        .btnn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--secondary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+            margin-top: 1rem;
+        }
+
+        .btnn:hover {
+            background: #3d8b40;
+        }
+
+        @media (max-width: 768px) {
+            .nav-list {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+        }
+</style>
+{% endblock %}
+
+{% block body %}
+    <header class="hero container">
+        <h1>About HealthCare Plus</h1>
+        <p>Dedicated to Excellence in Healthcare Since 1995</p>
+    </header>
+
+
+    <section class="container">
+        <h2>Welcome to HealthCare Plus</h2>
+        <p>For over 25 years, HealthCare Plus has been at the forefront of medical excellence, providing comprehensive
+            healthcare services to our community. Our state-of-the-art facilities and dedicated team of healthcare
+            professionals ensure that every patient receives the highest quality of care.</p>
+
+        <div class="mission-vision" id="mission">
+            <div class="card">
+                <h3>Our Mission</h3>
+                <p>To provide exceptional healthcare services that improve the quality of life for our patients and
+                    communities through innovation, compassion, and excellence in medical care.</p>
+            </div>
+            <div class="card">
+                <h3>Our Vision</h3>
+                <p>To be the leading healthcare provider recognized for excellence in patient care, innovative
+                    treatments, and community wellness programs.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team-section container">
+        <h2 style="text-align: center; margin-bottom: 50px; color: rgba(0, 90, 135, 0.9); font-size:30px;">Our Expert
+            Team
+        </h2>
+        <div class="team-grid">
+            <div class="team-member">
+                <img src="{{ url_for('static', filename='assets/images/img/p3.jpg')}}" alt="Team Member">
+                <div class="member-info">
+                    <h3>Filza Khilji</h3>
+                    <p>Frontend Developer</p>
+                    <div class="member-socials">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="team-member">
+                <img src="{{ url_for('static', filename='assets/images/img/p3.jpg')}}" alt="Team Member">
+                <div class="member-info">
+                    <h3>Shivangi Chandel</h3>
+                    <p> Frontend & Backend Developer</p>
+                    <div class="member-socials">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="team-member">
+                <img src="{{ url_for('static', filename='assets/images/img/rajesh.png')}}" alt="Team Member" class="img-fluid">
+                <div class="member-info">
+                    <h3>Rajesh Songara</h3>
+                    <p>Frontend & Backend Developer</p>
+                    <div class="member-socials">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="team-member">
+                <img src="{{ url_for('static', filename='assets/images/img/p3.jpg')}}" alt="Team Member">
+                <div class="member-info">
+                    <h3>Mamta Kumari</h3>
+                    <p>Frontend Developer</p>
+                    <div class="member-socials">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section class="mission-section container">
+        <h2 style="color:white">Our Mission</h2>
+        <p style="text-align: center; color: white; margin-bottom: 50px;">We believe in empowering individuals to take
+            control of their health through personalized, science-backed
+            approaches.</p>
+
+        <div class="mission-values">
+            <div class="mission-value">
+                <i class="fas fa-heartbeat"></i>
+                <h3>Holistic Health</h3>
+                <p>Addressing physical, mental, and emotional well-being.</p>
+            </div>
+            <div class="mission-value">
+                <i class="fas fa-users"></i>
+                <h3>Personalized Care</h3>
+                <p>Tailored health strategies for individual needs.</p>
+            </div>
+            <div class="mission-value">
+                <i class="fas fa-chart-line"></i>
+                <h3>Continuous Growth</h3>
+                <p>Commitment to ongoing learning and improvement.</p>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Achievements Section -->
+    <section class="achievements-section container">
+        <h2 style="text-align: center; color:rgba(0, 90, 135, 0.9); margin-bottom: 50px;">Our Achievements</h2>
+        <div class="achievements-grid">
+            <div class="achievement-card">
+                <div class="achievement-number" data-target="5000">0</div>
+                <p>Satisfied Clients</p>
+            </div>
+            <div class="achievement-card">
+                <div class="achievement-number" data-target="25">0</div>
+                <p>Years of Experience</p>
+            </div>
+            <div class="achievement-card">
+                <div class="achievement-number" data-target="98">0</div>
+                <p>Success Rate (%)</p>
+            </div>
+            <div class="achievement-card">
+                <div class="achievement-number" data-target="15">0</div>
+                <p>Expert Team Members</p>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+{% block extra_js %}
+    <script>
+        // Header Animation
+        window.addEventListener('load', () => {
+            const header = document.querySelector('.about-header');
+            const headerTitle = header.querySelector('h1');
+            const headerText = header.querySelector('p');
+
+            setTimeout(() => {
+                headerTitle.classList.add('header-animate');
+                headerText.classList.add('header-animate');
+            }, 300);
+        });
+
+        // Achievement Counter Animation
+        function animateCounters() {
+            const counters = document.querySelectorAll('.achievement-number');
+
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                const duration = 2000; // Animation duration in ms
+                const increment = target / duration * 50; // Speed of counting
+
+                let currentCount = 0;
+                const updateCounter = () => {
+                    currentCount += increment;
+
+                    if (currentCount < target) {
+                        counter.textContent = Math.round(currentCount);
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        counter.textContent = target;
+                    }
+                };
+
+                updateCounter();
+            });
+        }
+
+        // Trigger counter animation when section is in view
+        const achievementsSection = document.querySelector('.achievements-section');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        observer.observe(achievementsSection);
+    </script>
+    {% endblock %}
+</body>
+
+</html>

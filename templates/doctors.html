@@ -1,0 +1,362 @@
+{% extends "base.html" %}
+{% block extra_css %}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.css" rel="stylesheet">
+    <style>
+        
+        .doctor-card {
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            border: 1px solid #e0e0e0;
+        }
+
+        .doctor-card:hover {
+            border-color: #007bff;
+            box-shadow: 0 0 0 1px #007bff;
+        }
+
+        .doctor-img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .experience-badge {
+            background-color: #ffd54f;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+        }
+
+        .rating {
+            color: #ff9800;
+            font-weight: bold;
+        }
+
+        .consultation-fee {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .fee-amount {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #000;
+        }
+
+        .original-price {
+            text-decoration: line-through;
+            color: #999;
+            margin-left: 8px;
+        }
+
+        .book-btn {
+            background-color: #ff6b6b;
+            border: none;
+            padding: 10px 20px;
+            width: 100%;
+            color: white;
+            border-radius: 6px;
+        }
+
+        .book-btn:hover {
+            background-color: #ff5252;
+        }
+
+        .view-profile-btn {
+            background-color: #f5f5f5;
+            border: none;
+            padding: 10px 20px;
+            width: 100%;
+            color: #666;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+
+        .cashback-text {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        /* Booking Form Styles */
+        .booking-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1100;
+        }
+
+        .booking-modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .booking-form {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 600px;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .close-modal {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .time-slot {
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .time-slot:hover {
+            background-color: #f8f9fa;
+            border-color: #007bff;
+        }
+
+        .time-slot.selected {
+            background-color: #007bff;
+            color: white;
+            border-color: #0056b3;
+        }
+
+        .form-floating {
+            margin-bottom: 1rem;
+        }
+
+        .slots-container {
+            max-height: 200px;
+            overflow-y: auto;
+            padding: 10px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, #ff6b6b, #ff5252);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            width: 100%;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+        }
+    </style>
+{% endblock %}
+{% block body%}
+    <div class="container mt-4">
+        <h2 class="mb-4">Top {{ category_name }} Doctors Available</h2>
+        {% if doctors %}
+        {% for doctor in doctors %}
+        <div class="doctor-card">
+            <div class="row">
+                <div class="col-md-3 position-relative">
+                    <img src="{{ doctor[5] }}" alt="Doctor" class="doctor-img">
+                    <span class="experience-badge"> {{ doctor[3] }} Year of Exp.</span>
+                </div>
+                <div class="col-md-6">
+                    <h4>Dr. {{ doctor[1] }}</h4>
+                    <p class="mb-2">M.B.B.S</p>
+                    <div class="mb-2">
+                        <span class="rating">4.8 ★</span>
+                    </div>
+                    <p class="mb-2">
+                        <strong>Specilization:</strong><br>
+                        {{ doctor[2] }}
+                    </p>
+                    <p class="mb-0">
+                        <strong>Next available at:</strong><br>
+                        07:00 PM, TODAY
+                    </p>
+                </div>
+                <div class="col-md-3">
+                    <div class="consultation-fee mb-2">
+                        Consultation Fee
+                        <div class="fee-amount">
+                            ₹{{ doctor[4] }}<span class="original-price">₹458</span>
+                        </div>
+                    </div>
+                    <button class="view-profile-btn mb-2">View Profile</button>
+                    <button class="book-btn" onclick="openBookingModal('{{ doctor[0] }}', 'Dr. {{ doctor[1] }}')">Book an Appointment</button>
+                    <p class="cashback-text mt-2">
+                        Get up to 100% cashback* <a href="#" class="text-muted">T&C Apply</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+                 <p>No doctors available for this category.</p>
+        {% endif %}
+        <!-- Booking Modal -->
+        <div class="booking-modal" id="bookingModal">
+            <div class="booking-form">
+                <span class="close-modal" onclick="closeBookingModal()">&times;</span>
+                <h3 class="mb-4">Book Appointment</h3>
+                <form id="appointmentForm" action="/book-appointment" onsubmit="handleSubmit(event)" method="POST">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="doctorId" readonly>
+                        <label for="doctorId">Doctor ID</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="doctorName" readonly>
+                        <label for="doctorName">Doctor Name</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="patientId" readonly>
+                        <label for="patientId">Patient ID</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="appointmentDate" placeholder="Select Date" required>
+                        <label for="appointmentDate">Appointment Date</label>
+                    </div>
+                    
+                    <h5 class="mb-3">Available Time Slots</h5>
+                    <div class="slots-container">
+                        <div class="time-slot" onclick="selectTimeSlot(this)">09:00 AM</div>
+                        <div class="time-slot" onclick="selectTimeSlot(this)">10:00 AM</div>
+                        <div class="time-slot" onclick="selectTimeSlot(this)">11:00 AM</div>
+                        <div class="time-slot" onclick="selectTimeSlot(this)">12:00 PM</div>
+                        <div class="time-slot" onclick="selectTimeSlot(this)">02:00 PM</div>
+                        <div class="time-slot" onclick="selectTimeSlot(this)">03:00 PM</div>
+                        <div class="time-slot" onclick="selectTimeSlot(this)">04:00 PM</div>
+                        <div class="time-slot" onclick="selectTimeSlot(this)">05:00 PM</div>
+                        <div class="time-slot" onclick="selectTimeSlot(this)">06:00 PM</div>
+                        <div class="time-slot" onclick="selectTimeSlot(this)">07:00 PM</div>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">Confirm Booking</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.js"></script>
+    <script>
+        // Initialize date picker
+        flatpickr("#appointmentDate", {
+            minDate: "today",
+            dateFormat: "Y-m-d",
+            disable: [
+                function(date) {
+                    // Disable weekends
+                    return (date.getDay() === 0);
+                }
+            ]
+        });
+
+          // Check if the user is logged in using Flask session
+    let isLoggedIn = "{{ 'user_id' in session }}"; // Flask converts to 'True' or 'False'
+
+    // Function to open booking modal
+    function openBookingModal(doctorId, doctorName) {
+        if (isLoggedIn === "True") {
+            document.getElementById('bookingModal').classList.add('active');
+
+            // Auto-fill fields
+            document.getElementById('doctorId').value = doctorId;
+            document.getElementById('doctorName').value = doctorName;
+            document.getElementById('patientId').value = "{{ session['user_id'] }}"; // Auto-fill patient ID
+        } else {
+            alert("Please log in to book an appointment.");
+            window.location.href = "/login"; // Redirect to login if not logged in
+        }
+    }
+
+    // Function to close booking modal and reset form
+    function closeBookingModal() {
+        document.getElementById('bookingModal').classList.remove('active');
+
+        // Reset form fields
+        document.getElementById('appointmentForm').reset();
+
+        // Reset time slot selection
+        document.querySelectorAll('.time-slot').forEach(slot => {
+            slot.classList.remove('selected');
+        });
+    }
+
+    // Function to select a time slot
+    function selectTimeSlot(element) {
+        // Remove selection from other slots
+        document.querySelectorAll('.time-slot').forEach(slot => {
+            slot.classList.remove('selected');
+        });
+
+        // Add selection to clicked slot
+        element.classList.add('selected');
+    }
+
+    // Function to handle form submission
+    function handleSubmit(event) {
+        event.preventDefault();
+
+        const selectedSlot = document.querySelector('.time-slot.selected');
+        if (!selectedSlot) {
+            alert('Please select a time slot');
+            return;
+        }
+
+        const formData = {
+            doctor_id: document.getElementById('doctorId').value,
+            patient_id: document.getElementById('patientId').value,
+            date: document.getElementById('appointmentDate').value,
+            time: selectedSlot.textContent
+        };
+
+        // Simulate sending data to backend
+        console.log('Booking details:', formData);
+
+        // Close modal after booking
+        closeBookingModal();
+        
+        
+        // Send data to Flask backend
+    fetch('/book_appointment', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Appointment booked successfully!');
+            closeBookingModal();
+        } 
+    })
+    .catch(error => console.error('Error:', error));
+    }
+    </script>
+{% endblock %}
